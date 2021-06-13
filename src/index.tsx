@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
+
+const client: any = new W3CWebSocket('ws://localhost:8000');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App client={client}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
