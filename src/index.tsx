@@ -7,6 +7,12 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 const client: any = new W3CWebSocket('ws://localhost:8000');
 
+client.onopen = (event: any) => {
+  console.log(event)
+  console.log('Websocket Client Connected')
+}
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App client={client}/>
