@@ -1,33 +1,37 @@
 import React, { useState, useEffect }from 'react'
-//import PlayerList from './PlayerList'
+import Map from './Map'
+import UserList from './UserList'
+import styled from '@emotion/styled'
 
 //type Props = React.ComponentProps<typeof PlayerList>
 
+//type Users = {
+//  [key: string]: {[name: string]: string, [score: string]: number}
+//}
 type Users = {
-  [key: string]: {[name: string]: string}
+  [key: string]: {name: string, score: number}
 }
-type Props = {}
-//type Props = {
-//  users: Users,
-//  yourName: string
-//}
 
+//type Props = {}
+type Props = {
+  users: Users,
+  yourName: string
+}
 
-//const Game: React.FC<Props> = ({ children, users, yourName }) => {
-//  return (
-//    <div className="Game">
-//      <div>Map Component</div>
-//      <PlayerList users={users} yourName={yourName}/>
-//    </div>
-//  )
-//}
+const Game: React.FC<Props> = ({ children, users, yourName }) => {
 
-const Game: React.FC<Props> = ({ children }) => {
   return (
-    <div className="Game">
-      <div>Map Component</div>
-    </div>
+    <StyledRoot>
+      <Map />
+      <UserList users={users} yourName={yourName}/>
+    </StyledRoot>
   )
 }
+
+const StyledRoot = styled.div(() => ({
+  position: 'relative',
+  height: '100%',
+  width: '100%'
+}))
 
 export default Game;

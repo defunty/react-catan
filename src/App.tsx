@@ -1,6 +1,8 @@
 import React, { useState, useEffect }from 'react'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import styled from '@emotion/styled'
+import './index.css'
 
 type Props = {
   client: any
@@ -15,8 +17,12 @@ type User = {
 }
 
 type Users = {
-  [key: string]: {[name: string]: string}
+  [key: string]: {name: string, score: number}
 }
+//type Users = {
+//  [key: string]: {[name: string]: string, [score: string]: number}
+//}
+  
 //type Users = any
 
 const App: React.FC<Props> = ({ children, client }) => {
@@ -24,12 +30,11 @@ const App: React.FC<Props> = ({ children, client }) => {
   //const [loginState,setLoginState] = useState<boolean>(true);
   const [yourName, setYourName] = useState<string>('');
   const [users, setUsers] = useState<Users>({});
-  //const [users, setUsers] = useState<Users>({'aaa': {name: 'aaa'}});
   const [loginInputUserName, setLoginInputUserName] = useState<string>('');
-  const [clientId, setClientId] = useState<string>('aaa');
+  //const [clientId, setClientId] = useState<string>('aaa');
 
   const login = (senderName: string) => {
-    setClientId(senderName)
+    //setClientId(senderName)
     client.send(JSON.stringify({
       type: "login",
       senderName: senderName
@@ -73,33 +78,24 @@ const App: React.FC<Props> = ({ children, client }) => {
   //  }));
   //}
 
-  const renderUsers = () => {
-    const elements: any = []
-    for (const [key, value] of Object.entries(users)) {
-      elements.push(<div key={value.name}>{value.name}</div>);
-    }
-    return elements;
-  }
-
   return (
-    <div>
-      app component
+    <StyledRoot>
       {loginState ? 
-      <div>
-        {
-          //<Game users={users} yourName={yourName} />
-        }
-        { renderUsers() }
-
-      </div>
+      <Game users={users} yourName={yourName} />
       :
       <div>
         <input type="text" value={loginInputUserName} onChange={(e) => setLoginInputUserName(e.target.value)} />
         <button onClick={() => login(loginInputUserName)}>Login</button>
       </div>
       }
-    </div>
+    </StyledRoot>
   )
 }
+
+const StyledRoot = styled.div`
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+`
 
 export default App;
