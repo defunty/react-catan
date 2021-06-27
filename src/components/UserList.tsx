@@ -1,11 +1,7 @@
+import { Users } from '../types/index.d'
 import React, { useState, useEffect }from 'react'
 import styled from '@emotion/styled'
 
-type Users = {
-  [key: string]: {name: string, score: number}
-}
-
-//type Props = {}
 type Props = {
   users: Users,
   yourName: string

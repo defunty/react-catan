@@ -1,27 +1,11 @@
-import React, { useState, useEffect }from 'react'
+import { Message, Users } from './types/index.d'
+import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
 import clientState from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
 import './index.css'
-
-
-type Props = {
-  client: any
-}
-
-type Message = {
-  msg: string,
-  user: string
-}
-type User = {
-  [key: string]: {name: string}
-}
-
-type Users = {
-  [key: string]: {name: string, score: number}
-}
 
 const App = () => {
   const [client, setClient] = useRecoilState<any>(clientState);

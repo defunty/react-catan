@@ -5,6 +5,7 @@ type Props = {
   number: number,
   resource: string
 }
+
 const AreaSVG = ({ number, resource }: Props) => {
   return (
     <StyledRoot className={resource}>
