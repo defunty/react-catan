@@ -1,17 +1,11 @@
 import React, { useState, useEffect }from 'react'
+import { useRecoilState } from 'recoil';
+import clientState from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
 import './index.css'
 
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
-import clientState from './atoms/clientState'
 
 type Props = {
   client: any
@@ -28,26 +22,13 @@ type User = {
 type Users = {
   [key: string]: {name: string, score: number}
 }
-//type Users = {
-//  [key: string]: {[name: string]: string, [score: string]: number}
-//}
-  
-//type Users = any
 
-//const App: React.FC<Props> = ({ children, client }) => {
 const App = () => {
   const [client, setClient] = useRecoilState<any>(clientState);
-  client.onopen = (event: any) => {
-    console.log(event)
-    console.log('Websocket Client Connected')
-  }
-
   const [loginState,setLoginState] = useState<boolean>(false);
-  //const [loginState,setLoginState] = useState<boolean>(true);
   const [yourName, setYourName] = useState<string>('');
   const [users, setUsers] = useState<Users>({});
   const [loginInputUserName, setLoginInputUserName] = useState<string>('');
-  //const [clientId, setClientId] = useState<string>('aaa');
 
   const login = (senderName: string) => {
     //setClientId(senderName)
@@ -60,6 +41,7 @@ const App = () => {
   // connect websocket
   useEffect(() => {
     client.onopen = (event: any) => {
+      console.log(event)
       console.log('Websocket Client Connected')
     }
   }, []);
@@ -85,18 +67,8 @@ const App = () => {
     }
   }, [users, loginInputUserName]);
 
-  //const onButtonClicked = (value: string) => {
-  //  console.log('send')
-  //  client.send(JSON.stringify({
-  //    type: "message",
-  //    msg: value,
-  //    user: userName
-  //  }));
-  //}
-
   return (
     <StyledRoot>
-      <RecoilRoot>
       {loginState ? 
       <Game users={users} yourName={yourName} />
       :
@@ -105,7 +77,6 @@ const App = () => {
         <button onClick={() => login(loginInputUserName)}>Login</button>
       </div>
       }
-      </RecoilRoot>
     </StyledRoot>
   )
 }
