@@ -1,19 +1,23 @@
-import { Message, Users } from './types/index.d'
+import { Message, Users, Field } from './types/index.d'
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import clientState from './atoms/clientState'
+import { clientState, fieldsState } from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
 import './index.css'
 
 const App = () => {
+  // atom
   const [client, setClient] = useRecoilState<any>(clientState);
+  const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
+
+  // this
   const [loginState,setLoginState] = useState<boolean>(false);
   const [yourName, setYourName] = useState<string>('');
   const [users, setUsers] = useState<Users>({});
   const [loginInputUserName, setLoginInputUserName] = useState<string>('');
-
+  
   const login = (senderName: string) => {
     //setClientId(senderName)
     client.send(JSON.stringify({
@@ -33,11 +37,12 @@ const App = () => {
   useEffect(() => {
     client.onmessage = (message: any) => {
       console.log(JSON.parse(message.data))
-      console.log('message')
+      console.log('onmessage')
       const dataFromServer = JSON.parse(message.data);
       switch (dataFromServer.type) {
-        case 'command':
-          console.log('未実装')
+        case 'setFields':
+          console.log('setFields')
+          setFields(dataFromServer.fields)
           break;
         case 'login':
           console.log('login')
@@ -53,7 +58,7 @@ const App = () => {
 
   return (
     <StyledRoot>
-      {loginState ? 
+      {loginState ?
       <Game users={users} yourName={yourName} />
       :
       <div>

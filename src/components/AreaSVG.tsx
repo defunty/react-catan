@@ -48,7 +48,7 @@ const StyledRoot = styled.div`
   .Number {
     background-color: #fff;
     color: #333;
-    text-aligin: center;
+    text-align: center;
     position: absolute;
     top: 20px;
     left: 20px;

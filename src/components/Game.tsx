@@ -1,4 +1,4 @@
-import { Users } from '../types/index.d'
+import { Users, Field } from '../types/index.d'
 import React, { useState, useEffect }from 'react'
 import Map from './Map'
 import UserList from './UserList'
@@ -10,7 +10,6 @@ type Props = {
 }
 
 const Game: React.FC<Props> = ({ children, users, yourName }) => {
-
   return (
     <StyledRoot>
       <Map />

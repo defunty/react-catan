@@ -1,15 +1,23 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { clientState, fieldsState } from '../atoms/clientState';
 import styled from '@emotion/styled'
 import AreaSVG from './AreaSVG'
 
 type Field = {resource: string, number: number}
 
 const Map = () => {
-  const [fields, setFields] = useState<Field[]>([]);
+  //const [fields, setFields] = useState<Field[]>([]);
+  const [client, setClient] = useRecoilState<any>(clientState);
+  const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
 
   const clickRegenerateButton = () => {
     getRandomFields().then(randomFields => {
-      setFields(randomFields)
+      //setFields(randomFields)
+      client.send(JSON.stringify({
+        type: "setFields",
+        fields: randomFields
+      }));
     });
   }
 

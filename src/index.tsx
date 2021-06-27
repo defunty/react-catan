@@ -5,11 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { RecoilRoot } from 'recoil';
-import clientState from './atoms/clientState'
+import { clientState } from './atoms/clientState'
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>    
+    <RecoilRoot>
       <App />
     </RecoilRoot>
   </React.StrictMode>,
