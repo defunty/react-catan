@@ -4,6 +4,15 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
 import './index.css'
 
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+import clientState from './atoms/clientState'
+
 type Props = {
   client: any
 }
@@ -25,7 +34,14 @@ type Users = {
   
 //type Users = any
 
-const App: React.FC<Props> = ({ children, client }) => {
+//const App: React.FC<Props> = ({ children, client }) => {
+const App = () => {
+  const [client, setClient] = useRecoilState<any>(clientState);
+  client.onopen = (event: any) => {
+    console.log(event)
+    console.log('Websocket Client Connected')
+  }
+
   const [loginState,setLoginState] = useState<boolean>(false);
   //const [loginState,setLoginState] = useState<boolean>(true);
   const [yourName, setYourName] = useState<string>('');
@@ -80,6 +96,7 @@ const App: React.FC<Props> = ({ children, client }) => {
 
   return (
     <StyledRoot>
+      <RecoilRoot>
       {loginState ? 
       <Game users={users} yourName={yourName} />
       :
@@ -88,6 +105,7 @@ const App: React.FC<Props> = ({ children, client }) => {
         <button onClick={() => login(loginInputUserName)}>Login</button>
       </div>
       }
+      </RecoilRoot>
     </StyledRoot>
   )
 }

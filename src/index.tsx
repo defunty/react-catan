@@ -5,17 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
-const client: any = new W3CWebSocket('ws://localhost:8000');
-
-client.onopen = (event: any) => {
-  console.log(event)
-  console.log('Websocket Client Connected')
-}
-
+import { RecoilRoot } from 'recoil';
+import clientState from './atoms/clientState'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App client={client}/>
+    <RecoilRoot>    
+      <App />
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 );

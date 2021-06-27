@@ -93,6 +93,17 @@ const Map = () => {
         <AreaSVG number={fields[10]['number']} resource={fields[10]['resource']} />
         <AreaSVG number={fields[11]['number']} resource={fields[11]['resource']} />
       </div>
+      <div className="Column">
+        <AreaSVG number={fields[12]['number']} resource={fields[12]['resource']} />
+        <AreaSVG number={fields[13]['number']} resource={fields[13]['resource']} />
+        <AreaSVG number={fields[14]['number']} resource={fields[14]['resource']} />
+        <AreaSVG number={fields[15]['number']} resource={fields[15]['resource']} />
+      </div>
+      <div className="Column">
+        <AreaSVG number={fields[16]['number']} resource={fields[16]['resource']} />
+        <AreaSVG number={fields[17]['number']} resource={fields[17]['resource']} />
+        <AreaSVG number={fields[18]['number']} resource={fields[18]['resource']} />
+      </div>
       </React.Fragment>
       }
       
