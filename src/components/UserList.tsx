@@ -1,17 +1,40 @@
 import { Users } from '../types/index.d'
 import React, { useState, useEffect }from 'react'
+import { usersState } from '../atoms/clientState'
+import { useRecoilState } from 'recoil'
 import styled from '@emotion/styled'
 
 type Props = {
-  users: Users,
   yourName: string
 }
 
-const UserList: React.FC<Props> = ({ children, users, yourName }) => {
+const UserList: React.FC<Props> = ({ children, yourName }) => {
+  const [users, setUsers] = useRecoilState<Users>(usersState);
+  console.log(users)
+
+  const standby = (arg: {}) => {
+    //setUsers(prevUsers => ({...prevUsers, [yourName]: {standby: true}}))
+    const tmpUsers: Users = {}
+    for (const [key, value] of Object.entries(users)) {
+      tmpUsers[key] = {...value}
+      if (key === yourName) {
+        tmpUsers[key]['standby'] = true
+      }
+    }
+    setUsers(tmpUsers)
+  }
+
   const renderUsers = () => {
     const elements: any = []
     for (const [key, value] of Object.entries(users)) {
-      elements.push(<div className="User" key={value.name}>{value.name}</div>);
+      elements.push(
+        <div className="User" key={value.name}>
+          <span>{value.name}</span>
+          {(!users[yourName]['standby'] && yourName === value.name) &&
+          <button onClick={() => {standby(true)}}>standby</button>
+          }
+        </div>
+      );
     }
     return elements;
   }

@@ -4,7 +4,7 @@ export type Message = {
 }
 
 export type Users = {
-  [key: string]: {name: string, score: number}
+  [key: string]: {name: string, score: number, standby: boolean}
 }
 
 export type Field = {resource: string, number: number}

@@ -5,15 +5,14 @@ import UserList from './UserList'
 import styled from '@emotion/styled'
 
 type Props = {
-  users: Users,
   yourName: string
 }
 
-const Game: React.FC<Props> = ({ children, users, yourName }) => {
+const Game: React.FC<Props> = ({ children, yourName }) => {
   return (
     <StyledRoot>
       <Map />
-      <UserList users={users} yourName={yourName}/>
+      <UserList yourName={yourName}/>
     </StyledRoot>
   )
 }
@@ -21,7 +20,8 @@ const Game: React.FC<Props> = ({ children, users, yourName }) => {
 const StyledRoot = styled.div(() => ({
   position: 'relative',
   height: '100%',
-  width: '100%'
+  width: '100%',
+  zIndex: 100
 }))
 
 export default Game;

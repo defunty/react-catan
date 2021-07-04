@@ -1,7 +1,7 @@
 import { Message, Users, Field } from './types/index.d'
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import { clientState, fieldsState } from './atoms/clientState'
+import { clientState, fieldsState, usersState } from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
@@ -11,13 +11,13 @@ const App = () => {
   // atom
   const [client, setClient] = useRecoilState<any>(clientState);
   const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
+  const [users, setUsers] = useRecoilState<Users>(usersState);
 
   // this
   const [loginState,setLoginState] = useState<boolean>(false);
   const [yourName, setYourName] = useState<string>('');
-  const [users, setUsers] = useState<Users>({});
   const [loginInputUserName, setLoginInputUserName] = useState<string>('');
-  
+
   const login = (senderName: string) => {
     //setClientId(senderName)
     client.send(JSON.stringify({
@@ -32,7 +32,7 @@ const App = () => {
       console.log(event)
       console.log('Websocket Client Connected')
     }
-  }, []);
+  });
 
   useEffect(() => {
     client.onmessage = (message: any) => {
@@ -59,7 +59,7 @@ const App = () => {
   return (
     <StyledRoot>
       {loginState ?
-      <Game users={users} yourName={yourName} />
+      <Game yourName={yourName} />
       :
       <div>
         <input type="text" value={loginInputUserName} onChange={(e) => setLoginInputUserName(e.target.value)} />

@@ -1,6 +1,6 @@
 // tsxからtsに変える
 // ファイル名も変える（gameAtomとか?）
-import type { Field } from '../types/index'
+import type { Field, Users } from '../types/index'
 import { atom } from "recoil";
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
@@ -14,4 +14,9 @@ export const clientState = atom<any>({
 export const fieldsState = atom<Field[]>({
   key: 'fieldsState',
   default: []
+})
+
+export const usersState = atom<Users>({
+  key: 'usersState',
+  default: {}
 })

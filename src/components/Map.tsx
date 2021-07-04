@@ -127,7 +127,6 @@ const StyledRoot = styled.div`
   position: absolute;
   height: 100vh;
   width: 100vw;
-  z-index: 100;
 
   .RegenerateButton {
     /*z-index: 100;*/
