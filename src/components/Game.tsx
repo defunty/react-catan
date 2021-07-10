@@ -39,18 +39,30 @@ const Game: React.FC<Props> = ({ children, yourName }) => {
     <StyledRoot>
       <Map />
       { isStandby() &&
-        <button onClick={() => {setGameScene('playing')}}>Game Start</button>
+        <button className="GameStartButton" onClick={() => {setGameScene('playing')}}>Game Start</button>
       }
       <UserList yourName={yourName}/>
     </StyledRoot>
   )
 }
 
-const StyledRoot = styled.div(() => ({
-  position: 'relative',
-  height: '100%',
-  width: '100%',
-  zIndex: 100
-}))
+//const StyledRoot = styled.div(() => ({
+//  position: 'relative',
+//  height: '100%',
+//  width: '100%',
+//  zIndex: 100,
+//}))
+const StyledRoot = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  .GameStartButton {
+    position: absolute;
+    left: calc(50% - 40px);
+    top: 10px;
+  }
+`
+
 
 export default Game;

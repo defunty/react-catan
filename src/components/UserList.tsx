@@ -63,7 +63,7 @@ const StyledRoot = styled.div`
     background-color: #fff;
     border: 1px solid black;
     border-radius: 4px;
-    height: 40px;
+    height: auto;
     width: 200px;
   }
   .User:nth-of-type(1) {
@@ -74,17 +74,17 @@ const StyledRoot = styled.div`
   .User:nth-of-type(2) {
     position: absolute;
     top: 0;
-    right: 200px;
+    right: 0px;
   }
   .User:nth-of-type(3) {
     position: absolute;
-    bottom: 40px;
+    bottom: 0px;
     left: 0;
   }
   .User:nth-of-type(4) {
     position: absolute;
-    bottom: 40px;
-    right: 200px;
+    bottom: 0px;
+    right: 0px;
   }
 `
 
