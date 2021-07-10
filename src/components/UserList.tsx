@@ -1,6 +1,6 @@
-import { Users } from '../types/index.d'
+import { Users, Field } from '../types/index.d'
 import React, { useState, useEffect }from 'react'
-import { usersState } from '../atoms/clientState'
+import { clientState, fieldsState, usersState } from '../atoms/clientState'
 import { useRecoilState } from 'recoil'
 import styled from '@emotion/styled'
 
@@ -10,7 +10,9 @@ type Props = {
 
 const UserList: React.FC<Props> = ({ children, yourName }) => {
   const [users, setUsers] = useRecoilState<Users>(usersState);
-  console.log(users)
+  const [client, setClient] = useRecoilState<any>(clientState);
+  const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
+  //console.log(users)
 
   const standby = (arg: {}) => {
     //setUsers(prevUsers => ({...prevUsers, [yourName]: {standby: true}}))
@@ -21,7 +23,11 @@ const UserList: React.FC<Props> = ({ children, yourName }) => {
         tmpUsers[key]['standby'] = true
       }
     }
-    setUsers(tmpUsers)
+    client.send(JSON.stringify({
+      type: "updateUsers",
+      users: tmpUsers
+    }));
+    //setUsers(tmpUsers)
   }
 
   const renderUsers = () => {
@@ -29,8 +35,11 @@ const UserList: React.FC<Props> = ({ children, yourName }) => {
     for (const [key, value] of Object.entries(users)) {
       elements.push(
         <div className="User" key={value.name}>
-          <span>{value.name}</span>
-          {(!users[yourName]['standby'] && yourName === value.name) &&
+          <div>
+            standby{users[value.name]['standby'] ? ' ok' : '...'}
+          </div>
+          <div>{value.name}</div>
+          {(!users[yourName]['standby'] && yourName === value.name) && fields.length >= 1 &&
           <button onClick={() => {standby(true)}}>standby</button>
           }
         </div>

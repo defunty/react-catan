@@ -1,5 +1,4 @@
-// tsxからtsに変える
-// ファイル名も変える（gameAtomとか?）
+// ファイル名も変える（hogeAtomとか?）
 import type { Field, Users } from '../types/index'
 import { atom } from "recoil";
 import { w3cwebsocket as W3CWebSocket } from 'websocket';

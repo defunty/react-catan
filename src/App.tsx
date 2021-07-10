@@ -36,9 +36,10 @@ const App = () => {
 
   useEffect(() => {
     client.onmessage = (message: any) => {
-      console.log(JSON.parse(message.data))
-      console.log('onmessage')
+      //console.log(JSON.parse(message.data))
       const dataFromServer = JSON.parse(message.data);
+      console.log('onmessage')
+      console.log(dataFromServer.type)
       switch (dataFromServer.type) {
         case 'setFields':
           console.log('setFields')
@@ -51,6 +52,10 @@ const App = () => {
             setYourName(dataFromServer.senderName);
             setLoginState(true);
           }
+          break;
+        case 'updateUsers':
+          console.log('updateUsers')
+          setUsers(dataFromServer.users)
           break;
       }
     }

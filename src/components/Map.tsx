@@ -52,7 +52,6 @@ const Map = () => {
       let nullIndex: number = 0
       let nullResource: string = ''
       let desertIndex: number = 0
-      let desertNumber: number = 0
       for(let i = 0; i<randomNumberArray.length; i++) {
         if (randomNumberArray[i] === 0) {
           nullIndex = i
@@ -129,7 +128,8 @@ const StyledRoot = styled.div`
   width: 100vw;
 
   .RegenerateButton {
-    /*z-index: 100;*/
+    cursor: pointer;
+    z-index: 100;
   }
   .Column {
     display: flex;
