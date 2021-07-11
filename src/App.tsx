@@ -55,29 +55,16 @@ const App = () => {
             setYourName(dataFromServer.senderName);
             setLoginState(true);
           }
-          //setLogs(prevLogs => [...prevLogs, `${dataFromServer.senderName} have been logging in`])
           procUpdateLogs(`${dataFromServer.senderName} have been logging in.`)
           break;
         case 'updateUsers':
           console.log('updateUsers')
           setUsers(dataFromServer.users)
-          //setLogs(prevLogs => [...prevLogs, 'Update user information'])
           procUpdateLogs('Update user information.')
           break;
         case 'updateDices':
           console.log('updateDices')
           setDices(dataFromServer.dices)
-          console.log(logs)
-          const prevLogs = [...logs]
-          const prevLogs2 = [...logs]
-          // prevLogs.push('Dice is Rolled ...')
-          // prevLogs2.push('Dice is Rolled ...')
-          // setLogs(prevLogs)
-          // setTimeout(() => {
-          //   // setLogsに使った引数はread onlyとなる
-          //   prevLogs2.shift()
-          //   setLogs(prevLogs2)
-          // }, 3000)
           procUpdateLogs('Dice is Rolled ...')
           break;
       }
