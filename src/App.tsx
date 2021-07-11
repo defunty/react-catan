@@ -1,7 +1,7 @@
-import { Client, Message, Users, Field, Dices } from './types/index.d'
+import { Client, Message, Users, Field, Dices, Logs } from './types/index.d'
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import { clientState, fieldsState, usersState, dicesState } from './atoms/clientState'
+import { clientState, fieldsState, usersState, dicesState, logsState } from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
@@ -13,6 +13,7 @@ const App = () => {
   const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
   const [users, setUsers] = useRecoilState<Users>(usersState);
   const [dices, setDices] = useRecoilState<Dices>(dicesState);
+  const [logs, setLogs] = useRecoilState<Logs>(logsState)
 
   // this
   const [loginState,setLoginState] = useState<boolean>(false);
@@ -53,18 +54,33 @@ const App = () => {
             setYourName(dataFromServer.senderName);
             setLoginState(true);
           }
+          setLogs(prevLogs => [...prevLogs, `${dataFromServer.senderName} have been logging in`])
           break;
         case 'updateUsers':
           console.log('updateUsers')
           setUsers(dataFromServer.users)
+          setLogs(prevLogs => [...prevLogs, 'Update user information'])
           break;
         case 'updateDices':
           console.log('updateDices')
           setDices(dataFromServer.dices)
+          console.log(logs)
+          const prevLogs = [...logs]
+          const prevLogs2 = [...logs]
+          prevLogs.push('Dice is Rolled ...')
+          prevLogs2.push('Dice is Rolled ...')
+          setLogs(prevLogs)
+          // ここのlogsが上記のsetLogsをする前のlogsなので、元にsetTimeoutの中でsetLogsをする前のものからshiftしてしまう
+          // どうする？
+          setTimeout(() => {
+            // setLogsに使った引数はread onlyとなる
+            prevLogs2.shift()
+            setLogs(prevLogs2)
+          }, 3000)
           break;
       }
     }
-  }, [users, loginInputUserName]);
+  }, [logs, users, loginInputUserName]);
 
   return (
     <StyledRoot>

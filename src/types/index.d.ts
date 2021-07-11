@@ -7,6 +7,8 @@ export type Users = {
   [key: string]: {name: string, score: number, standby: boolean}
 }
 
+export type Logs = string[]
+
 export type Client = any
 
 export type Field = {resource: string, number: number}

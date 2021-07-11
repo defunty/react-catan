@@ -61,12 +61,14 @@ const StyledRoot = styled.div`
   top: 0;
   left: 0;
   position: absolute;
+  z-index: -1;
   .User {
     background-color: #fff;
     border: 1px solid black;
     border-radius: 4px;
     height: auto;
     width: 200px;
+    z-index: 1;
   }
   .User:nth-of-type(1) {
     position: absolute;

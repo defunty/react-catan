@@ -1,8 +1,9 @@
-import { Users, Field } from '../types/index.d'
+import { Logs, Users, Field } from '../types/index.d'
 import React, { useState, useEffect }from 'react'
 import { useRecoilState } from 'recoil'
-import { usersState } from '../atoms/clientState'
+import { logsState, usersState } from '../atoms/clientState'
 import gameState from '../atoms/gameState'
+import Log from './Log'
 import Map from './Map'
 import Dice from './Dice'
 import UserList from './UserList'
@@ -13,6 +14,7 @@ type Props = {
 }
 
 const Game: React.FC<Props> = ({ children, yourName }) => {
+  const [logs, setLogs] = useRecoilState<Logs>(logsState)
   const [gameScene, setGameScene] = useRecoilState<string>(gameState)
   const [users, setUsers] = useRecoilState<Users>(usersState)
 
@@ -34,6 +36,7 @@ const Game: React.FC<Props> = ({ children, yourName }) => {
 
   return (
     <StyledRoot>
+      <Log />
       <Map />
       <Dice />
       { isStandby() &&
