@@ -1,11 +1,11 @@
 // ファイル名も変える（hogeAtomとか?）
-import type { Field, Users } from '../types/index'
+import type { Client, Field, Users, Dices } from '../types/index'
 import { atom } from "recoil";
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 const client = new W3CWebSocket('ws://localhost:8000');
 
-export const clientState = atom<any>({
+export const clientState = atom<Client>({
   key: 'clientState',
   default: client,
 });
@@ -18,4 +18,9 @@ export const fieldsState = atom<Field[]>({
 export const usersState = atom<Users>({
   key: 'usersState',
   default: {}
+})
+
+export const dicesState = atom<Dices>({
+  key: 'dicesState',
+  default: []
 })

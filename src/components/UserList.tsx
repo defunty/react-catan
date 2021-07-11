@@ -58,7 +58,9 @@ const UserList: React.FC<Props> = ({ children, yourName }) => {
 const StyledRoot = styled.div`
   width: 100%;
   height: 100%;
-  position: relative;
+  top: 0;
+  left: 0;
+  position: absolute;
   .User {
     background-color: #fff;
     border: 1px solid black;

@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil'
 import { usersState } from '../atoms/clientState'
 import gameState from '../atoms/gameState'
 import Map from './Map'
+import Dice from './Dice'
 import UserList from './UserList'
 import styled from '@emotion/styled'
 
@@ -15,9 +16,6 @@ const Game: React.FC<Props> = ({ children, yourName }) => {
   const [gameScene, setGameScene] = useRecoilState<string>(gameState)
   const [users, setUsers] = useRecoilState<Users>(usersState)
 
-  useEffect(() => {
-
-  }, [users])
   function isStandby() {
     const isAllUserStandby = () => {
       let result: boolean | null = null;
@@ -34,10 +32,10 @@ const Game: React.FC<Props> = ({ children, yourName }) => {
     return isAllUserStandby()
   }
 
-
   return (
     <StyledRoot>
       <Map />
+      <Dice />
       { isStandby() &&
         <button className="GameStartButton" onClick={() => {setGameScene('playing')}}>Game Start</button>
       }
@@ -54,6 +52,7 @@ const Game: React.FC<Props> = ({ children, yourName }) => {
 //}))
 const StyledRoot = styled.div`
   position: relative;
+  padding-top: calc(50vh - 191px);
   height: 100%;
   width: 100%;
   z-index: 100;
@@ -63,6 +62,5 @@ const StyledRoot = styled.div`
     top: 10px;
   }
 `
-
 
 export default Game;

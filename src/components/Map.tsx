@@ -123,12 +123,12 @@ const StyledRoot = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+  padding: 20px;
+  width: 100%;
 
   .RegenerateButton {
     cursor: pointer;
+    margin-bottom: 20px;
     z-index: 100;
   }
   .Column {

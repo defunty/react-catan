@@ -1,7 +1,7 @@
-import { Message, Users, Field } from './types/index.d'
+import { Client, Message, Users, Field, Dices } from './types/index.d'
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import { clientState, fieldsState, usersState } from './atoms/clientState'
+import { clientState, fieldsState, usersState, dicesState } from './atoms/clientState'
 import Game from './components/Game'
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import styled from '@emotion/styled'
@@ -9,9 +9,10 @@ import './index.css'
 
 const App = () => {
   // atom
-  const [client, setClient] = useRecoilState<any>(clientState);
+  const [client, setClient] = useRecoilState<Client>(clientState);
   const [fields, setFields] = useRecoilState<Field[]>(fieldsState);
   const [users, setUsers] = useRecoilState<Users>(usersState);
+  const [dices, setDices] = useRecoilState<Dices>(dicesState);
 
   // this
   const [loginState,setLoginState] = useState<boolean>(false);
@@ -56,6 +57,10 @@ const App = () => {
         case 'updateUsers':
           console.log('updateUsers')
           setUsers(dataFromServer.users)
+          break;
+        case 'updateDices':
+          console.log('updateDices')
+          setDices(dataFromServer.dices)
           break;
       }
     }
