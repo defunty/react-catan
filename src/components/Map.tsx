@@ -47,11 +47,14 @@ const Map = () => {
     const randomNumberArray = randomise(numberArray)
 
     const proc = (randomResourceArray: string[], randomNumberArray: number[]) => {
+      console.log('randomize');
+      
       const randomFields: Field[] = []
 
       let nullIndex: number = 0
       let nullResource: string = ''
       let desertIndex: number = 0
+      let desertNumber: number = 0
       for(let i = 0; i<randomNumberArray.length; i++) {
         if (randomNumberArray[i] === 0) {
           nullIndex = i
@@ -59,12 +62,13 @@ const Map = () => {
         }
         if (randomResourceArray[i] === 'desert') {
           desertIndex = i
-          //desertNumber = randomNumberArray[i]
+          desertNumber = randomNumberArray[i]
         }
         randomFields.push({number: randomNumberArray[i], resource: randomResourceArray[i]})
-        if (i === randomNumberArray.length) {
+        if (i === randomNumberArray.length - 1) {
           // desertが入っている箇所に0を入れ、0が入っている箇所にdesertの数値を入れる
           randomFields[nullIndex]['resource'] = nullResource
+          randomFields[nullIndex]['number'] = desertNumber
           randomFields[desertIndex]['number'] = 0
         }
       }
