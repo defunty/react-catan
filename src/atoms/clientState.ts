@@ -27,5 +27,5 @@ export const dicesState = atom<Dices>({
 
 export const logsState = atom<Logs>({
   key: 'logsState',
-  default: []
+  default: ['Log Display']
 })

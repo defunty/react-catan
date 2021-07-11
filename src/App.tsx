@@ -46,6 +46,7 @@ const App = () => {
         case 'setFields':
           console.log('setFields')
           setFields(dataFromServer.fields)
+          procUpdateLogs('Regenerate fields.')
           break;
         case 'login':
           console.log('login')
@@ -54,12 +55,14 @@ const App = () => {
             setYourName(dataFromServer.senderName);
             setLoginState(true);
           }
-          setLogs(prevLogs => [...prevLogs, `${dataFromServer.senderName} have been logging in`])
+          //setLogs(prevLogs => [...prevLogs, `${dataFromServer.senderName} have been logging in`])
+          procUpdateLogs(`${dataFromServer.senderName} have been logging in.`)
           break;
         case 'updateUsers':
           console.log('updateUsers')
           setUsers(dataFromServer.users)
-          setLogs(prevLogs => [...prevLogs, 'Update user information'])
+          //setLogs(prevLogs => [...prevLogs, 'Update user information'])
+          procUpdateLogs('Update user information.')
           break;
         case 'updateDices':
           console.log('updateDices')
@@ -67,20 +70,32 @@ const App = () => {
           console.log(logs)
           const prevLogs = [...logs]
           const prevLogs2 = [...logs]
-          prevLogs.push('Dice is Rolled ...')
-          prevLogs2.push('Dice is Rolled ...')
-          setLogs(prevLogs)
-          // ここのlogsが上記のsetLogsをする前のlogsなので、元にsetTimeoutの中でsetLogsをする前のものからshiftしてしまう
-          // どうする？
-          setTimeout(() => {
-            // setLogsに使った引数はread onlyとなる
-            prevLogs2.shift()
-            setLogs(prevLogs2)
-          }, 3000)
+          // prevLogs.push('Dice is Rolled ...')
+          // prevLogs2.push('Dice is Rolled ...')
+          // setLogs(prevLogs)
+          // setTimeout(() => {
+          //   // setLogsに使った引数はread onlyとなる
+          //   prevLogs2.shift()
+          //   setLogs(prevLogs2)
+          // }, 3000)
+          procUpdateLogs('Dice is Rolled ...')
           break;
       }
     }
   }, [logs, users, loginInputUserName]);
+
+  function procUpdateLogs(msg: string) {
+    const prevLogs = [...logs]
+    const prevLogs2 = [...logs]
+    prevLogs.push(msg)
+    prevLogs2.push(msg)
+    setLogs(prevLogs)
+    setTimeout(() => {
+      // setLogsに使った引数はread onlyとなる
+      prevLogs2.shift()
+      setLogs(prevLogs2)
+    }, 3000)
+  }
 
   return (
     <StyledRoot>
